@@ -12,11 +12,11 @@ export default class LogicaFake {
     }
 
     async buscar_muestra() {
-        console.log("EMPIEZA LA EJECUCION DE: buscar_muestra()")
+        console.log("EMPIEZA LA EJECUCION PARA BUSCAR MEDIDA")
 
 		var metodo = this;
         //Se crea la peticion /muestra
-		var url = IP_PUERTO + '/fecha'
+		var url = IP_PUERTO + '/medida'
 		await fetch(url , {
             method: 'GET',
             headers: new Headers(
@@ -66,7 +66,7 @@ export default class LogicaFake {
         }) 
         .catch(err => console.error(err));
          
-		console.log("ACABA LA EJECUCION DE: insertar_muestra()")
+		console.log("ACABA LA EJECUCION DE: insertarmuestra()")
     }
 	
     // .................................................................
@@ -79,7 +79,7 @@ export default class LogicaFake {
 
         var metodo = this
         var muestra_txt = document.getElementById("valorMuestraTxt").textContent 
-		document.getElementById("valorMuestraTxt").textContent = "Valor de la muestra: " + muestra;
+		document.getElementById("valorMuestraTxt").textContent = "Valor de la medida: " + muestra;
 
         console.log("ACABA LA EJECUCION DE: cargarMuestra()")
 	}
