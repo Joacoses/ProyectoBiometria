@@ -29,37 +29,9 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             var solucion = { a: a, b: b, division: a / b }
             respuesta.send(JSON.stringify(solucion))
         }) // get /dividir
-    //----------------------------------------
-    servidorExpress.get(
-        '/dni',
-        async function (peticion, respuesta) {
-            console.log(" * GET /dni ")
-            var error = null
-            //Llamada a la funcion buscar_muestra() para recoger
-            //la muestra introducida en la DB
-            try {
-
-                var res = await laLogica.buscarPersonaConDNI("1234A")
-            }
-
-            catch (e) {
-                error = e
-            }
-
-
-            if (error != null) {
-                if (res.length == 0) {
-                    // 404: not found
-                    respuesta.status(404).send("No encontré la muestra")
-                    return
-                }
-            }
-            console.log(res)
-            respuesta.send(JSON.stringify(res))
-        }) // get /muestra
 
     //----------------------------------------
-    //Medida
+    //Obtenemos la medida de X fecha
     //----------------------------------------
     servidorExpress.get(
         '/fecha',
@@ -89,8 +61,8 @@ module.exports.cargar = function (servidorExpress, laLogica) {
             respuesta.send(JSON.stringify(res))
         }) // get /muestra
 
-        //----------------------------------------
-    //Medida
+    //----------------------------------------
+    //Obtenemos la medida mas reciente
     //----------------------------------------
     servidorExpress.get(
         '/medida',
@@ -122,54 +94,6 @@ module.exports.cargar = function (servidorExpress, laLogica) {
 
 
 
-
-        servidorExpress.post(
-            '/alta',
-            async function( peticion, respuesta ){
-                console.log( " * POST /alta " )
-                var datos = JSON.parse(peticion.body)
-                console.log( datos.medida )
-                console.log( datos.fecha )
-                // supuesto procesamiento
-                try{
-        
-                    await laLogica.insertarMedida(datos)
-                }
-        
-                catch (e){
-                    error = e
-                } 
-            }) // post /alta
-         // ()
-
-
-
-
-    // .......................................................
-    // POST /alta
-    // .......................................................
-    servidorExpress.post(
-        '/alta/:tipoMedida/:medida/:fecha',
-        async function( peticion, respuesta ){
-            console.log( " * POST /alta " )
-            //var datos = JSON.parse(peticion.body)
-            console.log( peticion.params.tipoMedida)
-            console.log( peticion.params.medida )
-            console.log( peticion.params.fecha ) 
-            datos = {tipoMedida:peticion.params.tipoMedida, medida:peticion.params.medida, fecha:peticion.params.fecha }
-            console.log(datos)
-            // supuesto procesamiento
-            try{
-                await laLogica.insertarMedida(datos)
-            }
-    
-            catch (e){
-                error = e
-            } 
-        }) // post /alta
-
-/*
-
     // .......................................................
     // POST /alta
     // .......................................................
@@ -177,27 +101,49 @@ module.exports.cargar = function (servidorExpress, laLogica) {
         '/alta',
         async function (peticion, respuesta) {
             console.log(" * POST /alta ")
-            var error = null
             var datos = JSON.parse(peticion.body)
-            console.log(datos)
-            
-
+            console.log(datos.medida)
+            console.log(datos.fecha)
+            // supuesto procesamiento
             try {
-                var res = await laLogica.insertarMedida(datos)
+
+                await laLogica.insertarMedida(datos)
             }
+
             catch (e) {
                 error = e
-                console.log(error)
             }
-            /*
-                        // supuesto procesamiento
-                        if (datos.dni == "1234A") {
-                            respuesta.send("OK")
-                        } else {
-                            // 404 = not found
-                            respuesta.status(404).send("no acertaste con el dni")
-                        }
-        }) // get /dividir*/
+        }) // post /alta
+    // ()
+
+
+
+    //Post para la app
+    // .......................................................
+    // POST /alta
+    // .......................................................
+    //le pasamos los parametros y se lo añadimos a datos,
+    //posteriormente los insertamos en la base de datos
+    servidorExpress.post(
+        '/alta/:tipoMedida/:medida/:fecha',
+        async function (peticion, respuesta) {
+            console.log(" * POST /alta ")
+            //var datos = JSON.parse(peticion.body)
+            console.log(peticion.params.tipoMedida)
+            console.log(peticion.params.medida)
+            console.log(peticion.params.fecha)
+            datos = { tipoMedida: peticion.params.tipoMedida, medida: peticion.params.medida, fecha: peticion.params.fecha }
+            console.log(datos)
+            // supuesto procesamiento
+            try {
+                await laLogica.insertarMedida(datos)
+            }
+
+            catch (e) {
+                error = e
+            }
+        }) // post /alta
+
 } // ()
 // .....................................................................
 // .....................................................................

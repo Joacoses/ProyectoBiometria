@@ -43,24 +43,7 @@ describe("Test 1 : Recuerda arrancar el servidor", function () {
         ) // .get
     }) // it
 
-    //--------------------------------------------------------------
-    it("probar GET /dni", function (hecho) {
-        request.get(
-            {
-                url: IP_PUERTO + "/dni",
-                headers: {
-                    'User-Agent': 'JoanCosta'
-                }
-            },
-            function (err, respuesta, carga) {
-                assert.equal(err, null, "¿ha habido un error?")
-                assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
-                var solucion = JSON.parse(carga)
-                assert.equal(solucion[0].dni, '1234A', "¿El cociente es no es 4?")
-                hecho()
-            } // callback
-        ) // .get
-    }) // it
+    
     // ....................................................
     // ....................................................
     it("probar GET /fecha", function (hecho) {
@@ -95,7 +78,7 @@ describe("Test 1 : Recuerda arrancar el servidor", function () {
                 //assert.equal(err, null, "¿ha habido un error?")
                 //assert.equal(respuesta.statusCode, 200, "¿El código no es 200 (OK)")
                 var solucion = JSON.parse(carga)
-                assert.equal(solucion[0].medida, '33', "¿La fecha no es 8/04/22?")
+                assert.equal(solucion[0].medida, '5599', "¿La fecha no es 8/04/22?")
                 hecho()
             } // callback
         ) // .get
