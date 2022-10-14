@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// Autora: Joan Costa Escriva
+// Autor: Joan Costa Escriva
 // Fecha: 22/09/2022
 // Fichero: Beacons.ino
 // Descripción: código para el envío de iBeacons a través del Bluetooth de un micro
@@ -15,13 +15,13 @@
 //-------------------------------------------------------------------------------------------------
 void setup() {
   
-  Serial.begin(115200); //Inicializamos para poder imprimir más tarde por pantalla
+  Serial.begin(115200); //Inicializamos el Serial para poder imprimir por pantalla más tarde
   
   Bluefruit.begin(); //Inicializamos el modulo para poder utilizar el micro
 
   Serial.println("PRUEBAS iBeacon"); //Avisamos de que comenzamos la prueba
 
-  Serial.println("El nombre del iBeacon es Joan_Sprint0"); //Informamos de cual será el nombre para poder encontrarlo de manera más sencilla
+  Serial.println("El nombre del iBeacon es Alba_Sprint0"); //Informamos de cual será el nombre para poder encontrarlo de manera más sencilla
   Bluefruit.setName("Joan_Sprint0"); //Le asignamos un nombre a los iBeacons que enviaremos
   Bluefruit.ScanResponse.addName(); 
 
@@ -44,11 +44,11 @@ void starAdvertising(){
   //Creamos el UID del beacon con un identificador propio
   Serial.println( "Creamos el Beacon");
   uint8_t beaconUUID[16] = {
-     'J', 'O', 'A', 'N', '_', 'G', 'T', 'I','_', 'S', 'P', 'R', 'I', 'N', 'T', '0'
+     'J', 'O', 'A', 'N', '_', 'G', 'T', 'I', '_', 'S', 'P', 'R', 'I', 'N', 'T', '0'
      };
 
   //Le asignamos el mayor y minor para reconocer nuestro beacon
-  BLEBeacon elBeacon( beaconUUID, 20, 02, 73 ); //uuid, major, minor y rssi
+  BLEBeacon elBeacon( beaconUUID, 25, 42, 73 ); //minor, major, rssi
   elBeacon.setManufacturer( 0x004c ); // aple id
   Bluefruit.Advertising.setBeacon( elBeacon );
 
