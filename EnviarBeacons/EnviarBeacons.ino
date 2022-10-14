@@ -21,7 +21,7 @@ void setup() {
 
   Serial.println("PRUEBAS iBeacon"); //Avisamos de que comenzamos la prueba
 
-  Serial.println("El nombre del iBeacon es Alba_Sprint0"); //Informamos de cual será el nombre para poder encontrarlo de manera más sencilla
+  Serial.println("El nombre del iBeacon es Joan_Sprint0"); //Informamos de cual será el nombre para poder encontrarlo de manera más sencilla
   Bluefruit.setName("Joan_Sprint0"); //Le asignamos un nombre a los iBeacons que enviaremos
   Bluefruit.ScanResponse.addName(); 
 
